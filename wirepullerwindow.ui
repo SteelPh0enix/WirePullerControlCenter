@@ -721,7 +721,7 @@
       <x>670</x>
       <y>10</y>
       <width>201</width>
-      <height>86</height>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_27">
@@ -733,7 +733,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox"/>
+      <widget class="QComboBox" name="serialPortsListCombo"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="openedPortName">
+       <property name="text">
+        <string>No port opened</string>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_10">

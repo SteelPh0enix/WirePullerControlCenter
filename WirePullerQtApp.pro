@@ -26,9 +26,11 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        serialportinfomanager.cpp \
         wirepullerwindow.cpp
 
 HEADERS += \
+        serialportinfomanager.hpp \
         wirepullerwindow.hpp
 
 FORMS += \

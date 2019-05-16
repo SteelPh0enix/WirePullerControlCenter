@@ -2,6 +2,7 @@
 #define WIREPULLERWINDOW_HPP
 
 #include <QMainWindow>
+#include <serialportinfomanager.hpp>
 
 namespace Ui {
 class WirePullerWindow;
@@ -14,8 +15,12 @@ class WirePullerWindow : public QMainWindow {
   explicit WirePullerWindow(QWidget* parent = nullptr);
   ~WirePullerWindow();
 
+ private slots:
+  void on_refreshSerialPortsButton_clicked();
+
  private:
   Ui::WirePullerWindow* ui;
+  SerialPortInfoManager serialPortInfoManager;
 };
 
 #endif  // WIREPULLERWINDOW_HPP
