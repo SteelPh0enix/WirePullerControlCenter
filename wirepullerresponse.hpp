@@ -1,0 +1,6 @@
+#ifndef WIREPULLERRESPONSE_HPP
+#define WIREPULLERRESPONSE_HPP
+
+struct WirePullerResponse {};
+
+#endif  // WIREPULLERRESPONSE_HPP

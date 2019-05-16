@@ -1,0 +1,6 @@
+#ifndef WIREPULLERREQUEST_HPP
+#define WIREPULLERREQUEST_HPP
+
+struct WirePullerRequest {};
+
+#endif  // WIREPULLERREQUEST_HPP

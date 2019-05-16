@@ -25,12 +25,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        communicator.cpp \
         main.cpp \
+        requestbuilder.cpp \
         serialportinfomanager.cpp \
         wirepullerwindow.cpp
 
 HEADERS += \
+        communicator.hpp \
+        messageparser.hpp \
+        requestbuilder.hpp \
         serialportinfomanager.hpp \
+        wirepullerrequest.hpp \
+        wirepullerresponse.hpp \
         wirepullerwindow.hpp
 
 FORMS += \
