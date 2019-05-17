@@ -1,9 +1,9 @@
 #ifndef MESSAGEPARSER_HPP
 #define MESSAGEPARSER_HPP
 
-#include <Messages/wirepullerrequest.hpp>
-#include <Messages/wirepullerresponse.hpp>
 #include <QByteArray>
+#include "wirepullerrequest.hpp"
+#include "wirepullerresponse.hpp"
 
 class MessageParser {
  public:

@@ -1,10 +1,10 @@
 #ifndef COMMUNICATOR_HPP
 #define COMMUNICATOR_HPP
 
-#include <Messages/messageparser.hpp>
-#include <Messages/wirepullerrequest.hpp>
-#include <Messages/wirepullerresponse.hpp>
 #include <QSerialPort>
+#include "Messages/messageparser.hpp"
+#include "Messages/wirepullerrequest.hpp"
+#include "Messages/wirepullerresponse.hpp"
 
 class Communicator {
  public:
