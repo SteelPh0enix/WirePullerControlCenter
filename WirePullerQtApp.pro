@@ -33,6 +33,7 @@ SOURCES += \
 
 HEADERS += \
         communicator.hpp \
+  jsonconstants.hpp \
         requestbuilder.hpp \
         serialportinfomanager.hpp \
         wirepullerwindow.hpp \
