@@ -1,28 +1,25 @@
 #ifndef COMMUNICATOR_HPP
 #define COMMUNICATOR_HPP
 
-#include <QObject>
+#include <Messages/messageparser.hpp>
+#include <Messages/wirepullerrequest.hpp>
+#include <Messages/wirepullerresponse.hpp>
 #include <QSerialPort>
-#include <messageparser.hpp>
-#include <wirepullerrequest.hpp>
-#include <wirepullerresponse.hpp>
 
-class Communicator : public QObject {
-  Q_OBJECT
+class Communicator {
  public:
-  explicit Communicator(QObject* parent = nullptr);
-
   void setSerialPort(QSerialPort port);
   void setDataParser(MessageParser* parser);
 
-  WirePullerResponse send(WirePullerRequest const& data) const;
+  WirePullerResponse send(WirePullerRequest const& request);
 
- signals:
-
- public slots:
+  bool open();
+  void close();
+  void setBaudRate(QSerialPort::BaudRate baudRate);
 
  private:
   MessageParser* messageParser{nullptr};
+  QSerialPort serialPort;
 };
 
 #endif  // COMMUNICATOR_HPP

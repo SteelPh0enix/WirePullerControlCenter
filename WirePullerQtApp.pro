@@ -33,12 +33,14 @@ SOURCES += \
 
 HEADERS += \
         communicator.hpp \
-        messageparser.hpp \
         requestbuilder.hpp \
         serialportinfomanager.hpp \
-        wirepullerrequest.hpp \
-        wirepullerresponse.hpp \
-        wirepullerwindow.hpp
+        wirepullerwindow.hpp \
+    Messages/messageparser.hpp \
+    Messages/wirepullerrequest.hpp \
+    Messages/wirepullerresponse.hpp \
+    Messages/messagetypes.hpp \
+    devicenames.hpp
 
 FORMS += \
         wirepullerwindow.ui

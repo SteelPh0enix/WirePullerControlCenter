@@ -1,6 +1,3 @@
 #include "requestbuilder.hpp"
 
-RequestBuilder::RequestBuilder()
-{
-
-}
+RequestBuilder::RequestBuilder() {}
