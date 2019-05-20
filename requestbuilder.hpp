@@ -8,13 +8,13 @@
 
 class RequestBuilder {
  public:
-  static WirePullerRequest makeSetMotorSpeedRequest(
+  static Request makeSetMotorSpeedRequest(
       QHash<QString, int> const& motorList);
 
-  static WirePullerRequest makeGetDataRequest(
+  static Request makeGetDataRequest(
       Message::DataFlags const& dataType);
 
-  static WirePullerRequest makeResetEncoderRequest(
+  static Request makeResetEncoderRequest(
       QHash<QString, bool> const& encodersList);
 };
 

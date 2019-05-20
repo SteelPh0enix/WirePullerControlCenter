@@ -2,20 +2,21 @@
 #include <algorithm>
 #include "jsonconstants.hpp"
 
-WirePullerRequest RequestBuilder::makeSetMotorSpeedRequest(
+Request RequestBuilder::makeSetMotorSpeedRequest(
     QHash<QString, int> const& motorList) {
-  WirePullerRequest request{};
+  Request request{};
 
   request.type = Message::RequestType::SetMotorSpeed;
-  std::copy(motorList.cbegin(), motorList.cend(),
-            std::inserter(request.data, request.data.begin()));
+
+  for (auto motor = motorList.cbegin(); motor != motorList.cend(); motor++) {
+    request.data[motor.key()] = motor.value();
+  }
 
   return request;
 }
 
-WirePullerRequest RequestBuilder::makeGetDataRequest(
-    Message::DataFlags const& dataType) {
-  WirePullerRequest request{};
+Request RequestBuilder::makeGetDataRequest(Message::DataFlags const& dataType) {
+  Request request{};
 
   request.type = Message::RequestType::GetData;
   request.data.insert(JsonKey::DataRequestFlag, static_cast<int>(dataType));
@@ -23,13 +24,15 @@ WirePullerRequest RequestBuilder::makeGetDataRequest(
   return request;
 }
 
-WirePullerRequest RequestBuilder::makeResetEncoderRequest(
+Request RequestBuilder::makeResetEncoderRequest(
     QHash<QString, bool> const& encodersList) {
-  WirePullerRequest request{};
+  Request request{};
 
   request.type = Message::RequestType::ResetEncoder;
-  std::copy(encodersList.cbegin(), encodersList.cend(),
-            std::inserter(request.data, request.data.begin()));
+  for (auto encoder = encodersList.cbegin(); encoder != encodersList.cend();
+       encoder++) {
+    request.data[encoder.key()] = encoder.value();
+  }
 
   return request;
 }

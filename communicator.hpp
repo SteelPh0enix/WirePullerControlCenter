@@ -8,10 +8,11 @@
 
 class Communicator {
  public:
-  void setSerialPort(QSerialPort port);
+  void setSerialPort(QSerialPortInfo const& portInfo);
+  void setSerialPort(QString const& portName);
   void setDataParser(MessageParser* parser);
 
-  WirePullerResponse send(WirePullerRequest const& request);
+  Response send(Request const& request);
 
   bool open();
   void close();

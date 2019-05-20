@@ -1,6 +1,10 @@
 #include "communicator.hpp"
 
-WirePullerResponse Communicator::send(WirePullerRequest const& request) {
+Response Communicator::send(Request const& request) {
+  if (messageParser == nullptr) {
+    return Response{};
+  }
+
   QByteArray rawRequest = messageParser->parseRequest(request);
   serialPort.write(rawRequest);
 
@@ -9,7 +13,10 @@ WirePullerResponse Communicator::send(WirePullerRequest const& request) {
 }
 
 bool Communicator::open() {
-  return serialPort.open(QIODevice::ReadWrite | QIODevice::Text);
+  if (serialPort.isOpen()) {
+    close();
+  }
+  return serialPort.open(QIODevice::ReadWrite);
 }
 
 void Communicator::close() {
@@ -27,4 +34,16 @@ void Communicator::setBaudRate(QSerialPort::BaudRate baudRate) {
   if (wasOpen) {
     open();
   }
+}
+
+void Communicator::setSerialPort(QSerialPortInfo const& portInfo) {
+  serialPort.setPort(portInfo);
+}
+
+void Communicator::setSerialPort(QString const& portName) {
+  serialPort.setPortName(portName);
+}
+
+void Communicator::setDataParser(MessageParser* parser) {
+  messageParser = parser;
 }

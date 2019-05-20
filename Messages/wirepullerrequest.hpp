@@ -1,14 +1,14 @@
 #ifndef WIREPULLERREQUEST_HPP
 #define WIREPULLERREQUEST_HPP
 
-#include <QHash>
-#include <QString>
-#include <QVariant>
+#include <QVariantHash>
 #include "messagetypes.hpp"
 
-struct WirePullerRequest {
+using RequestData = QVariantHash;
+
+struct Request {
   Message::RequestType type;
-  QHash<QString, QVariant> data;
+  RequestData data;
 };
 
 #endif  // WIREPULLERREQUEST_HPP

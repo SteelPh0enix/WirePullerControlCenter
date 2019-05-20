@@ -1,14 +1,14 @@
 #ifndef WIREPULLERRESPONSE_HPP
 #define WIREPULLERRESPONSE_HPP
 
-#include <QHash>
-#include <QString>
-#include <QVariant>
+#include <QVariantHash>
 #include "messagetypes.hpp"
 
-struct WirePullerResponse {
+using ResponseData = QVariantHash;
+
+struct Response {
   Message::ResponseType type;
-  QHash<QString, QVariant> data;
+  ResponseData data;
 };
 
 #endif  // WIREPULLERRESPONSE_HPP
