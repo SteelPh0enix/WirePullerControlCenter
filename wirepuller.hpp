@@ -4,12 +4,14 @@
 #include <QObject>
 #include <QSerialPort>
 #include <QString>
+#include "Messages/jsonmessageparser.hpp"
+#include "communicator.hpp"
+#include "requestbuilder.hpp"
 
 class WirePuller : public QObject {
   Q_OBJECT
  public:
   WirePuller(QObject* parent = nullptr);
-  ~WirePuller();
 
   bool setSerialPort(QString const& portName);
 
@@ -23,9 +25,11 @@ class WirePuller : public QObject {
 
  private:
   void setMovingState(bool state);
-
   bool movingStateFlag{false};
-  QSerialPort serialPort;
+
+  RequestBuilder requestBuilder;
+  Communicator communicator;
+  JsonMessageParser jsonMessageParser;
 };
 
 #endif  // WIREPULLER_HPP

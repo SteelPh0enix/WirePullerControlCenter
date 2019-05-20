@@ -1,5 +1,9 @@
 #include "communicator.hpp"
 
+Communicator::~Communicator() {
+  serialPort.close();
+}
+
 Response Communicator::send(Request const& request) {
   if (messageParser == nullptr) {
     return Response{};
@@ -46,4 +50,8 @@ void Communicator::setSerialPort(QString const& portName) {
 
 void Communicator::setDataParser(MessageParser* parser) {
   messageParser = parser;
+}
+
+bool Communicator::isOpen() const {
+  return serialPort.isOpen();
 }

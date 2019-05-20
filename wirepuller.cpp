@@ -1,24 +1,29 @@
 #include "wirepuller.hpp"
+#include <QDebug>
 
 WirePuller::WirePuller(QObject* parent) : QObject(parent) {
-  serialPort.setBaudRate(QSerialPort::Baud115200);
-}
-
-WirePuller::~WirePuller() {
-  serialPort.close();
+  communicator.setBaudRate(QSerialPort::Baud115200);
+  communicator.setDataParser(&jsonMessageParser);
 }
 
 bool WirePuller::setSerialPort(const QString& portName) {
-  serialPort.close();
-  serialPort.setPortName(portName);
-  return serialPort.open(QIODevice::ReadWrite);
+  communicator.setSerialPort(portName);
+  return communicator.open();
 }
 
 bool WirePuller::startMoving() {
+  if (!isPortOpen()) {
+    return false;
+  }
+
   return true;
 }
 
 bool WirePuller::stopMoving() {
+  if (!isPortOpen()) {
+    return false;
+  }
+
   return true;
 }
 
@@ -29,7 +34,7 @@ bool WirePuller::movingState() const {
 }
 
 bool WirePuller::isPortOpen() const {
-  return serialPort.isOpen();
+  return communicator.isOpen();
 }
 
 void WirePuller::setMovingState(bool state) {

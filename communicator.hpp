@@ -8,6 +8,8 @@
 
 class Communicator {
  public:
+  ~Communicator();
+
   void setSerialPort(QSerialPortInfo const& portInfo);
   void setSerialPort(QString const& portName);
   void setDataParser(MessageParser* parser);
@@ -17,6 +19,8 @@ class Communicator {
   bool open();
   void close();
   void setBaudRate(QSerialPort::BaudRate baudRate);
+
+  bool isOpen() const;
 
  private:
   MessageParser* messageParser{nullptr};
