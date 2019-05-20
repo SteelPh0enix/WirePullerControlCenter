@@ -7,6 +7,8 @@
 #include "Messages/jsonmessageparser.hpp"
 #include "communicator.hpp"
 #include "requestbuilder.hpp"
+#include "wirepullerdata.hpp"
+#include "wirepulleruidata.hpp"
 
 class WirePuller : public QObject {
   Q_OBJECT
@@ -22,6 +24,12 @@ class WirePuller : public QObject {
   bool isPortOpen() const;
 
   void callibrate();
+
+ signals:
+  void dataReceived(WirePullerData const& data);
+
+ public slots:
+  void updateData(WirePullerUIData const& data);
 
  private:
   void setMovingState(bool state);

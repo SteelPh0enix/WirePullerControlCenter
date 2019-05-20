@@ -8,6 +8,11 @@ WirePullerWindow::WirePullerWindow(QWidget* parent)
   ui->setupUi(this);
 
   on_refreshSerialPortsButton_clicked();
+
+  QObject::connect(this, &WirePullerWindow::wirePullerDataUpdated, &wirePuller,
+                   &WirePuller::updateData);
+  QObject::connect(&wirePuller, &WirePuller::dataReceived, this,
+                   &WirePullerWindow::updateWirePullerData);
 }
 
 WirePullerWindow::~WirePullerWindow() {

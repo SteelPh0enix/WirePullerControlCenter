@@ -39,3 +39,21 @@ bool WirePuller::isPortOpen() const {
 void WirePuller::setMovingState(bool state) {
   movingStateFlag = state;
 }
+
+void WirePuller::updateData(WirePullerUIData const& data) {
+  Request request{};
+  switch (data.requestType) {
+    case WirePullerUIData::RequestType::None: {
+      break;
+    }
+    case WirePullerUIData::RequestType::SetMotorPower: {
+      request = requestBuilder.makeSetMotorSpeedRequest(data.data);
+      break;
+    }
+    case WirePullerUIData::RequestType::SetPosition: {
+      break;
+    }
+  }
+
+  Response response = communicator.send(request);
+}

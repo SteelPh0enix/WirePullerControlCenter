@@ -41,8 +41,6 @@ class WirePullerWindow : public QMainWindow {
   bool movingState{false};
 
   WirePullerUIData readDataFromUI(WirePullerUIData::RequestType type) const;
-  WirePullerUIData::Data readMotorPowersFromUI() const;
-  WirePullerUIData::Data readAxisDistancesFromUI() const;
 
   int translateEncoderReadingsToDistance(int rawData) const;
 };
