@@ -1,5 +1,6 @@
 #include "wirepullerwindow.hpp"
 #include <QMessageBox>
+#include "devicenames.hpp"
 #include "ui_wirepullerwindow.h"
 
 WirePullerWindow::WirePullerWindow(QWidget* parent)
@@ -71,4 +72,60 @@ void WirePullerWindow::setMovingState(bool state) {
   }
 
   movingState = state;
+}
+
+void WirePullerWindow::updateWirePullerData(WirePullerData const& data) {
+  ui->xAxisLeftEndstopStatus->setChecked(
+      data.endstopStates[DeviceName::EndstopXAxisLeft]);
+  ui->xAxisRightEndstopStatus->setChecked(
+      data.endstopStates[DeviceName::EndstopXAxisRight]);
+
+  ui->wheelAxisLeftEndstopStatus->setChecked(
+      data.endstopStates[DeviceName::EndstopWheelXAxisLeft]);
+  ui->wheelAxisRightEndstopStatus->setChecked(
+      data.endstopStates[DeviceName::EndstopWheelXAxisRight]);
+
+  ui->breakerAxisLeftEndstopStatus->setChecked(
+      data.endstopStates[DeviceName::EndstopBreakerAxisLeft]);
+  ui->breakerAxisRightEndstopStatus->setChecked(
+      data.endstopStates[DeviceName::EndstopBreakerAxisRight]);
+
+  ui->xAxisDistance->setText(QString(translateEncoderReadingsToDistance(
+      data.encodersData[DeviceName::EncoderXAxis])));
+  ui->wheelAxisDistance->setText(QString(translateEncoderReadingsToDistance(
+      data.encodersData[DeviceName::EncoderWheel])));
+  ui->breakerAxisDistance->setText(QString(translateEncoderReadingsToDistance(
+      data.encodersData[DeviceName::EncoderBreakerAxis])));
+}
+
+int WirePullerWindow::translateEncoderReadingsToDistance(int rawData) const {
+  return rawData;
+}
+
+WirePullerUIData WirePullerWindow::readDataFromUI(
+    WirePullerUIData::RequestType type) const {
+  WirePullerUIData data;
+  data.requestType = type;
+
+  switch (type) {
+    case WirePullerUIData::RequestType::None: {
+      break;
+    }
+    case WirePullerUIData::RequestType::SetMotorPower: {
+      data.data[DeviceName::MotorXAxis] = ui->xAxisMotorPower->value();
+      data.data[DeviceName::MotorWheel] = ui->wheelAxisMotorPower->value();
+      data.data[DeviceName::MotorBreakerAxis] =
+          ui->breakerAxisMotorPower->value();
+      break;
+    }
+    case WirePullerUIData::RequestType::SetPosition: {
+      data.data[DeviceName::MotorXAxis] = ui->xAxisPosition->text().toInt();
+      data.data[DeviceName::MotorWheel] = ui->wheelAxisPosition->text().toInt();
+      data.data[DeviceName::MotorBreakerAxis] =
+          ui->breakerAxisPosition->text().toInt();
+      break;
+    }
+  }
+
+  return data;
 }

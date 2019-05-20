@@ -1,5 +1,4 @@
 #include "wirepuller.hpp"
-#include <QDebug>
 
 WirePuller::WirePuller(QObject* parent) : QObject(parent) {
   communicator.setBaudRate(QSerialPort::Baud115200);
