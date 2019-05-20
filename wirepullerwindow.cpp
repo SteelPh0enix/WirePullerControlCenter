@@ -24,7 +24,11 @@ void WirePullerWindow::on_refreshSerialPortsButton_clicked() {
 
 void WirePullerWindow::on_openSerialPortButton_clicked() {
   auto selectedPort = ui->serialPortsListCombo->currentText();
-  wirePuller.setSerialPort(selectedPort);
+  if (wirePuller.setSerialPort(selectedPort)) {
+    ui->openedPortName->setText(QString("Opened port: %1").arg(selectedPort));
+  } else {
+    ui->openedPortName->setText("Unable to open port!");
+  }
 }
 
 void WirePullerWindow::on_helpButton_clicked() {
@@ -49,12 +53,22 @@ void WirePullerWindow::on_actionExit_triggered() {
 
 void WirePullerWindow::on_actionButton_clicked() {
   if (movingState) {
-    wirePuller.startMoving();
+    setMovingState(!wirePuller.stopMoving());
   } else {
-    wirePuller.stopMoving();
+    setMovingState(wirePuller.startMoving());
   }
 }
 
 void WirePullerWindow::on_resetButton_clicked() {
   wirePuller.callibrate();
+}
+
+void WirePullerWindow::setMovingState(bool state) {
+  if (state) {
+    ui->actionButton->setText("Stop");
+  } else {
+    ui->actionButton->setText("Start");
+  }
+
+  movingState = state;
 }

@@ -2,6 +2,7 @@
 #define WIREPULLER_HPP
 
 #include <QObject>
+#include <QSerialPort>
 #include <QString>
 
 class WirePuller : public QObject {
@@ -12,15 +13,19 @@ class WirePuller : public QObject {
 
   bool setSerialPort(QString const& portName);
 
-  void startMoving();
-  void stopMoving();
+  bool startMoving();
+  bool stopMoving();
 
   bool movingState() const;
+  bool isPortOpen() const;
 
   void callibrate();
 
  private:
+  void setMovingState(bool state);
+
   bool movingStateFlag{false};
+  QSerialPort serialPort;
 };
 
 #endif  // WIREPULLER_HPP

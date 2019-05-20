@@ -19,13 +19,9 @@ class WirePullerWindow : public QMainWindow {
  private slots:
   void on_refreshSerialPortsButton_clicked();
   void on_openSerialPortButton_clicked();
-
   void on_helpButton_clicked();
-
   void on_actionExit_triggered();
-
   void on_actionButton_clicked();
-
   void on_resetButton_clicked();
 
  private:
@@ -33,6 +29,7 @@ class WirePullerWindow : public QMainWindow {
   SerialPortInfoManager serialPortInfoManager{};
   WirePuller wirePuller;
 
+  void setMovingState(bool state);
   bool movingState{false};
 };
 
