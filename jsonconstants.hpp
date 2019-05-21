@@ -19,6 +19,7 @@ constexpr char const* EncoderDataObject = "encoders";
 constexpr char const* DataRequestFlag = "flag";
 }  // namespace JsonKey
 
+namespace JsonValue {
 namespace RequestType {
 constexpr char const* SetMotorSpeed = "set_motor_speed";
 constexpr char const* GetData = "data_request";
@@ -29,5 +30,6 @@ namespace ResponseType {
 constexpr char const* Error = "error";
 constexpr char const* Data = "data";
 }  // namespace ResponseType
+}  // namespace JsonValue
 
 #endif  // JSONCONSTANTS_HPP

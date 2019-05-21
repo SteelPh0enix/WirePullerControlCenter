@@ -8,11 +8,9 @@
 
 class RequestBuilder {
  public:
-  static Request makeSetMotorSpeedRequest(
-      QHash<QString, int> const& motorList);
+  static Request makeSetMotorSpeedRequest(QHash<QString, int> const& motorList);
 
-  static Request makeGetDataRequest(
-      Message::DataFlags const& dataType);
+  static Request makeGetDataRequest(Message::DataFlag const& dataType);
 
   static Request makeResetEncoderRequest(
       QHash<QString, bool> const& encodersList);

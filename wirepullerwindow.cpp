@@ -8,11 +8,6 @@ WirePullerWindow::WirePullerWindow(QWidget* parent)
   ui->setupUi(this);
 
   on_refreshSerialPortsButton_clicked();
-
-  QObject::connect(this, &WirePullerWindow::wirePullerDataUpdated, &wirePuller,
-                   &WirePuller::updateData);
-  QObject::connect(&wirePuller, &WirePuller::dataReceived, this,
-                   &WirePullerWindow::updateWirePullerData);
 }
 
 WirePullerWindow::~WirePullerWindow() {
@@ -30,11 +25,6 @@ void WirePullerWindow::on_refreshSerialPortsButton_clicked() {
 
 void WirePullerWindow::on_openSerialPortButton_clicked() {
   auto selectedPort = ui->serialPortsListCombo->currentText();
-  if (wirePuller.setSerialPort(selectedPort)) {
-    ui->openedPortName->setText(QString("Opened port: %1").arg(selectedPort));
-  } else {
-    ui->openedPortName->setText("Unable to open port!");
-  }
 }
 
 void WirePullerWindow::on_helpButton_clicked() {
@@ -57,17 +47,7 @@ void WirePullerWindow::on_actionExit_triggered() {
   QApplication::exit();
 }
 
-void WirePullerWindow::on_actionButton_clicked() {
-  if (movingState) {
-    setMovingState(!wirePuller.stopMoving());
-  } else {
-    setMovingState(wirePuller.startMoving());
-  }
-}
-
-void WirePullerWindow::on_resetButton_clicked() {
-  wirePuller.callibrate();
-}
+void WirePullerWindow::on_actionButton_clicked() {}
 
 void WirePullerWindow::setMovingState(bool state) {
   if (state) {
@@ -77,60 +57,4 @@ void WirePullerWindow::setMovingState(bool state) {
   }
 
   movingState = state;
-}
-
-void WirePullerWindow::updateWirePullerData(WirePullerData const& data) {
-  ui->xAxisLeftEndstopStatus->setChecked(
-      data.endstopStates[DeviceName::EndstopXAxisLeft]);
-  ui->xAxisRightEndstopStatus->setChecked(
-      data.endstopStates[DeviceName::EndstopXAxisRight]);
-
-  ui->wheelAxisLeftEndstopStatus->setChecked(
-      data.endstopStates[DeviceName::EndstopWheelXAxisLeft]);
-  ui->wheelAxisRightEndstopStatus->setChecked(
-      data.endstopStates[DeviceName::EndstopWheelXAxisRight]);
-
-  ui->breakerAxisLeftEndstopStatus->setChecked(
-      data.endstopStates[DeviceName::EndstopBreakerAxisLeft]);
-  ui->breakerAxisRightEndstopStatus->setChecked(
-      data.endstopStates[DeviceName::EndstopBreakerAxisRight]);
-
-  ui->xAxisDistance->setText(QString(translateEncoderReadingsToDistance(
-      data.encodersData[DeviceName::EncoderXAxis])));
-  ui->wheelAxisDistance->setText(QString(translateEncoderReadingsToDistance(
-      data.encodersData[DeviceName::EncoderWheel])));
-  ui->breakerAxisDistance->setText(QString(translateEncoderReadingsToDistance(
-      data.encodersData[DeviceName::EncoderBreakerAxis])));
-}
-
-int WirePullerWindow::translateEncoderReadingsToDistance(int rawData) const {
-  return rawData;
-}
-
-WirePullerUIData WirePullerWindow::readDataFromUI(
-    WirePullerUIData::RequestType type) const {
-  WirePullerUIData data;
-  data.requestType = type;
-
-  switch (type) {
-    case WirePullerUIData::RequestType::None: {
-      break;
-    }
-    case WirePullerUIData::RequestType::SetMotorPower: {
-      data.data[DeviceName::MotorXAxis] = ui->xAxisMotorPower->value();
-      data.data[DeviceName::MotorWheel] = ui->wheelAxisMotorPower->value();
-      data.data[DeviceName::MotorBreakerAxis] =
-          ui->breakerAxisMotorPower->value();
-      break;
-    }
-    case WirePullerUIData::RequestType::SetPosition: {
-      data.data[DeviceName::MotorXAxis] = ui->xAxisPosition->text().toInt();
-      data.data[DeviceName::MotorWheel] = ui->wheelAxisPosition->text().toInt();
-      data.data[DeviceName::MotorBreakerAxis] =
-          ui->breakerAxisPosition->text().toInt();
-      break;
-    }
-  }
-
-  return data;
 }

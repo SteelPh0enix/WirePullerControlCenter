@@ -45,9 +45,7 @@ HEADERS += \
     Messages/wirepullerrequest.hpp \
     Messages/wirepullerresponse.hpp \
     Messages/messagetypes.hpp \
-    devicenames.hpp \
-    wirepullerdata.hpp \
-    wirepulleruidata.hpp
+    devicenames.hpp
 
 FORMS += \
         wirepullerwindow.ui

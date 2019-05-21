@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include "serialportinfomanager.hpp"
 #include "wirepuller.hpp"
-#include "wirepullerdata.hpp"
-#include "wirepulleruidata.hpp"
 
 namespace Ui {
 class WirePullerWindow;
@@ -18,6 +16,13 @@ class WirePullerWindow : public QMainWindow {
   explicit WirePullerWindow(QWidget* parent = nullptr);
   ~WirePullerWindow();
 
+  enum class Axis { X, Wheel, Breaker };
+  struct AxisData {
+    bool leftEndstopState;
+    bool rightEndstopState;
+    int distanceTicks;
+  };
+
  private slots:
   void on_refreshSerialPortsButton_clicked();
   void on_openSerialPortButton_clicked();
@@ -27,22 +32,20 @@ class WirePullerWindow : public QMainWindow {
   void on_resetButton_clicked();
 
  public slots:
-  void updateWirePullerData(WirePullerData const& data);
+  void setMovingState(bool state);
+  void updateAxisData(Axis axis, AxisData const& data);
 
  signals:
-  void wirePullerDataUpdated(WirePullerUIData const& data);
+  void callibrate();
+  void startMoving();
+  void stopMoving();
+  void openSerialPort(QString const& portName);
 
  private:
   Ui::WirePullerWindow* ui{nullptr};
   SerialPortInfoManager serialPortInfoManager{};
-  WirePuller wirePuller;
 
-  void setMovingState(bool state);
   bool movingState{false};
-
-  WirePullerUIData readDataFromUI(WirePullerUIData::RequestType type) const;
-
-  int translateEncoderReadingsToDistance(int rawData) const;
 };
 
 #endif  // WIREPULLERWINDOW_HPP

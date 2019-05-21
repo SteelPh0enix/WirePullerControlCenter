@@ -15,7 +15,7 @@ Request RequestBuilder::makeSetMotorSpeedRequest(
   return request;
 }
 
-Request RequestBuilder::makeGetDataRequest(Message::DataFlags const& dataType) {
+Request RequestBuilder::makeGetDataRequest(Message::DataFlag const& dataType) {
   Request request{};
 
   request.type = Message::RequestType::GetData;

@@ -6,7 +6,7 @@ enum class RequestType { Invalid, SetMotorSpeed, GetData, ResetEncoder };
 
 enum class ResponseType { Invalid, Error, Data };
 
-enum class DataFlags { Motor = 1, Endstop = 2, Encoder = 4 };
+enum class DataFlag { Motor = 1, Endstop = 2, Encoder = 4 };
 }  // namespace Message
 
 #endif  // MESSAGETYPES_HPP

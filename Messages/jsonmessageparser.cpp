@@ -42,13 +42,13 @@ QString JsonMessageParser::convertRequestTypeToString(
       return "invalid";
     }
     case Message::RequestType::SetMotorSpeed: {
-      return RequestType::SetMotorSpeed;
+      return JsonValue::RequestType::SetMotorSpeed;
     }
     case Message::RequestType::GetData: {
-      return RequestType::GetData;
+      return JsonValue::RequestType::GetData;
     }
     case Message::RequestType::ResetEncoder: {
-      return RequestType::ResetEncoder;
+      return JsonValue::RequestType::ResetEncoder;
     }
   }
   return QString();
@@ -61,10 +61,10 @@ QString JsonMessageParser::convertResponseTypeToString(
       return "invalid";
     }
     case Message::ResponseType::Data: {
-      return ResponseType::Data;
+      return JsonValue::ResponseType::Data;
     }
     case Message::ResponseType::Error: {
-      return ResponseType::Error;
+      return JsonValue::ResponseType::Error;
     }
   }
   return QString();
@@ -102,9 +102,9 @@ QJsonObject JsonMessageParser::convertRequestDataToJson(
 
 Message::ResponseType JsonMessageParser::convertStringToResponseType(
     const QString& type) const {
-  if (type == ResponseType::Data) {
+  if (type == JsonValue::ResponseType::Data) {
     return Message::ResponseType::Data;
-  } else if (type == ResponseType::Error) {
+  } else if (type == JsonValue::ResponseType::Error) {
     return Message::ResponseType::Error;
   }
   return Message::ResponseType::Invalid;
