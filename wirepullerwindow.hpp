@@ -16,7 +16,7 @@ class WirePullerWindow : public QMainWindow {
   explicit WirePullerWindow(QWidget* parent = nullptr);
   ~WirePullerWindow();
 
-  enum class Axis { X, Wheel, Breaker };
+  enum class Axis { None, X, Wheel, Breaker };
   struct AxisData {
     bool leftEndstopState;
     bool rightEndstopState;
@@ -34,6 +34,7 @@ class WirePullerWindow : public QMainWindow {
  public slots:
   void setMovingState(bool state);
   void updateAxisData(Axis axis, AxisData const& data);
+  void serialPortOpenFeedback(bool isOpen);
 
  signals:
   void callibrate();
@@ -46,6 +47,9 @@ class WirePullerWindow : public QMainWindow {
   SerialPortInfoManager serialPortInfoManager{};
 
   bool movingState{false};
+  bool portOpenState{false};
+
+  double translateTicksToDistance(Axis axis, double ticks) const;
 };
 
 #endif  // WIREPULLERWINDOW_HPP
