@@ -24,8 +24,10 @@ class WirePuller : public QObject {
   void callibrate();
 
  signals:
+  void serialPortOpened(bool flag);
 
  public slots:
+  void openSerialPort(QString const& portName);
 
  private:
   void setMovingState(bool state);
