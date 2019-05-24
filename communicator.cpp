@@ -1,5 +1,4 @@
 #include "communicator.hpp"
-#include <QDebug>
 
 Communicator::~Communicator() {
   serialPort.close();
@@ -14,7 +13,6 @@ Response Communicator::send(Request const& request) {
   serialPort.write(rawRequest);
 
   QByteArray rawResponse = serialPort.readLine();
-  qDebug() << rawResponse;
 
   return messageParser->parseResponse(rawResponse);
 }

@@ -27,7 +27,7 @@ class WirePullerWindow : public QMainWindow {
 
  public slots:
   void setMovingState(bool state);
-  void updateAxisData(UIData::Axis axis, UIData::AxisData const& data);
+  void updateAxisData(UIData::Axis axis, UIData::AxisInputData const& data);
   void serialPortOpenFeedback(bool isOpen);
 
  signals:
@@ -35,6 +35,7 @@ class WirePullerWindow : public QMainWindow {
   void startMoving();
   void stopMoving();
   void openSerialPort(QString const& portName);
+  void axisUpdated(UIData::Axis axis, UIData::AxisOutputData const& data);
 
  private:
   Ui::WirePullerWindow* ui{nullptr};

@@ -1,6 +1,7 @@
 #ifndef WIREPULLER_HPP
 #define WIREPULLER_HPP
 
+#include <QHash>
 #include <QObject>
 #include <QSerialPort>
 #include <QString>
@@ -23,13 +24,17 @@ class WirePuller : public QObject {
  signals:
   void serialPortOpened(bool flag);
   void movingStateFeedback(bool state);
-  void updateUI(UIData::Axis axis, UIData::AxisData const& data);
+  void updateUI(UIData::Axis axis, UIData::AxisInputData const& data);
 
  public slots:
   void openSerialPort(QString const& portName);
   void startMoving();
   void stopMoving();
   void callibrate();
+  void axisUpdated(UIData::Axis axis, UIData::AxisOutputData const& data);
+
+ private slots:
+  void sendData() const;
 
  private:
   void setMovingState(bool state);
@@ -39,7 +44,9 @@ class WirePuller : public QObject {
   Communicator communicator;
   JsonMessageParser jsonMessageParser;
 
-  QTimer serialSenderTimer;
+  QTimer communicatorTimer;
+
+  QHash<UIData::Axis, UIData::AxisOutputData> storedData;
 };
 
 #endif  // WIREPULLER_HPP

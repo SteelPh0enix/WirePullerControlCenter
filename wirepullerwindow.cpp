@@ -75,7 +75,7 @@ void WirePullerWindow::setMovingState(bool state) {
 }
 
 void WirePullerWindow::updateAxisData(UIData::Axis axis,
-                                      UIData::AxisData const& data) {
+                                      UIData::AxisInputData const& data) {
   switch (axis) {
     case UIData::Axis::None: {
       break;

@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
 
   QObject::connect(&wirePuller, &WirePuller::updateUI, &ui,
                    &WirePullerWindow::updateAxisData);
+  QObject::connect(&ui, &WirePullerWindow::axisUpdated, &wirePuller,
+                   &WirePuller::axisUpdated);
 
   QObject::connect(&ui, &WirePullerWindow::callibrate, &wirePuller,
                    &WirePuller::callibrate);
