@@ -137,9 +137,33 @@ double WirePullerWindow::translateTicksToDistance(UIData::Axis axis,
     }
   }
 
-  if (ticksPerCm == 0) {
+  if (ticksPerCm == 0.) {
     return ticks;
   } else {
     return ticks / ticksPerCm;
   }
 }
+
+void WirePullerWindow::on_xAxisMotorPower_valueChanged(int value) {}
+
+void WirePullerWindow::on_wheelAxisMotorPower_valueChanged(int value) {}
+
+void WirePullerWindow::on_breakerAxisMotorPower_valueChanged(int value) {}
+
+void WirePullerWindow::on_xAxisPosition_returnPressed() {}
+
+void WirePullerWindow::on_wheelAxisPosition_returnPressed() {}
+
+void WirePullerWindow::on_breakerAxisPosition_returnPressed() {}
+
+void WirePullerWindow::on_xAxisModePosition_toggled(bool checked) {}
+
+void WirePullerWindow::on_xAxisModePower_toggled(bool checked) {}
+
+void WirePullerWindow::on_wheelAxisModePosition_toggled(bool checked) {}
+
+void WirePullerWindow::on_wheelAxisModePower_toggled(bool checked) {}
+
+void WirePullerWindow::on_breakerAxisModePosition_toggled(bool checked) {}
+
+void WirePullerWindow::on_breakerAxisModePower_toggled(bool checked) {}

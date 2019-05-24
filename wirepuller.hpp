@@ -1,7 +1,7 @@
 #ifndef WIREPULLER_HPP
 #define WIREPULLER_HPP
 
-#include <QHash>
+#include <QMap>
 #include <QObject>
 #include <QSerialPort>
 #include <QString>
@@ -46,7 +46,7 @@ class WirePuller : public QObject {
 
   QTimer communicatorTimer;
 
-  QHash<UIData::Axis, UIData::AxisOutputData> storedData;
+  QMap<UIData::Axis, UIData::AxisOutputData> storedData;
 };
 
 #endif  // WIREPULLER_HPP

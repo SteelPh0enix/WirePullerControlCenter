@@ -4,7 +4,7 @@ WirePuller::WirePuller(QObject* parent) : QObject(parent) {
   communicator.setBaudRate(QSerialPort::Baud115200);
   communicator.setDataParser(&jsonMessageParser);
 
-  communicatorTimer.setInterval(200);
+  communicatorTimer.setInterval(100);
   QObject::connect(&communicatorTimer, &QTimer::timeout, this,
                    &WirePuller::sendData);
 }
@@ -19,6 +19,8 @@ void WirePuller::startMoving() {
     return;
   }
 
+  communicatorTimer.start();
+
   setMovingState(true);
 }
 
@@ -26,6 +28,8 @@ void WirePuller::stopMoving() {
   if (!isPortOpen() || !movingState()) {
     return;
   }
+
+  communicatorTimer.stop();
 
   setMovingState(false);
 }
@@ -49,8 +53,9 @@ void WirePuller::openSerialPort(QString const& portName) {
   emit serialPortOpened(setSerialPort(portName));
 }
 
-void WirePuller::axisUpdated(UIData::Axis, UIData::AxisOutputData const& data) {
-
+void WirePuller::axisUpdated(UIData::Axis axis,
+                             UIData::AxisOutputData const& data) {
+  storedData[axis] = data;
 }
 
 void WirePuller::sendData() const {}

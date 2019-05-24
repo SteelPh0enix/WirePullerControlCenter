@@ -25,6 +25,30 @@ class WirePullerWindow : public QMainWindow {
   void on_actionButton_clicked();
   void on_resetButton_clicked();
 
+  void on_xAxisMotorPower_valueChanged(int value);
+
+  void on_wheelAxisMotorPower_valueChanged(int value);
+
+  void on_breakerAxisMotorPower_valueChanged(int value);
+
+  void on_xAxisPosition_returnPressed();
+
+  void on_wheelAxisPosition_returnPressed();
+
+  void on_breakerAxisPosition_returnPressed();
+
+  void on_xAxisModePosition_toggled(bool checked);
+
+  void on_xAxisModePower_toggled(bool checked);
+
+  void on_wheelAxisModePosition_toggled(bool checked);
+
+  void on_wheelAxisModePower_toggled(bool checked);
+
+  void on_breakerAxisModePosition_toggled(bool checked);
+
+  void on_breakerAxisModePower_toggled(bool checked);
+
  public slots:
   void setMovingState(bool state);
   void updateAxisData(UIData::Axis axis, UIData::AxisInputData const& data);

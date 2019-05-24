@@ -1,8 +1,9 @@
 #ifndef UIDATA_HPP
 #define UIDATA_HPP
+#include <QHash>
 
 namespace UIData {
-enum class Axis { None, X, Wheel, Breaker };
+enum class Axis { None = 0, X, Wheel, Breaker };
 struct AxisInputData {
   bool leftEndstopState;
   bool rightEndstopState;
@@ -10,7 +11,7 @@ struct AxisInputData {
 };
 
 struct AxisOutputData {
-  enum class RequestType { None, SetPower, SetPosition };
+  enum class Mode { None, SetPower, SetPosition } mode;
   int power;
   int distance;
 };
