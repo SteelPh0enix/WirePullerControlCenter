@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "serialportinfomanager.hpp"
+#include "uidata.hpp"
 #include "wirepuller.hpp"
 
 namespace Ui {
@@ -16,13 +17,6 @@ class WirePullerWindow : public QMainWindow {
   explicit WirePullerWindow(QWidget* parent = nullptr);
   ~WirePullerWindow();
 
-  enum class Axis { None, X, Wheel, Breaker };
-  struct AxisData {
-    bool leftEndstopState;
-    bool rightEndstopState;
-    int distanceTicks;
-  };
-
  private slots:
   void on_refreshSerialPortsButton_clicked();
   void on_openSerialPortButton_clicked();
@@ -33,7 +27,7 @@ class WirePullerWindow : public QMainWindow {
 
  public slots:
   void setMovingState(bool state);
-  void updateAxisData(Axis axis, AxisData const& data);
+  void updateAxisData(UIData::Axis axis, UIData::AxisData const& data);
   void serialPortOpenFeedback(bool isOpen);
 
  signals:
@@ -49,7 +43,7 @@ class WirePullerWindow : public QMainWindow {
   bool movingState{false};
   bool portOpenState{false};
 
-  double translateTicksToDistance(Axis axis, double ticks) const;
+  double translateTicksToDistance(UIData::Axis axis, double ticks) const;
 };
 
 #endif  // WIREPULLERWINDOW_HPP

@@ -74,31 +74,31 @@ void WirePullerWindow::setMovingState(bool state) {
   movingState = state;
 }
 
-void WirePullerWindow::updateAxisData(WirePullerWindow::Axis axis,
-                                      WirePullerWindow::AxisData const& data) {
+void WirePullerWindow::updateAxisData(UIData::Axis axis,
+                                      UIData::AxisData const& data) {
   switch (axis) {
-    case Axis::None: {
+    case UIData::Axis::None: {
       break;
     }
-    case Axis::X: {
+    case UIData::Axis::X: {
       ui->xAxisLeftEndstopStatus->setChecked(data.leftEndstopState);
       ui->xAxisRightEndstopStatus->setChecked(data.rightEndstopState);
       ui->xAxisDistance->setText(QString::number(
-          translateTicksToDistance(Axis::X, data.distanceTicks)));
+          translateTicksToDistance(UIData::Axis::X, data.distanceTicks)));
       break;
     }
-    case Axis::Wheel: {
+    case UIData::Axis::Wheel: {
       ui->wheelAxisLeftEndstopStatus->setChecked(data.leftEndstopState);
       ui->wheelAxisRightEndstopStatus->setChecked(data.rightEndstopState);
       ui->wheelAxisDistance->setText(QString::number(
-          translateTicksToDistance(Axis::Wheel, data.distanceTicks)));
+          translateTicksToDistance(UIData::Axis::Wheel, data.distanceTicks)));
       break;
     }
-    case Axis::Breaker: {
+    case UIData::Axis::Breaker: {
       ui->breakerAxisLeftEndstopStatus->setChecked(data.leftEndstopState);
       ui->breakerAxisRightEndstopStatus->setChecked(data.rightEndstopState);
       ui->breakerAxisDistance->setText(QString::number(
-          translateTicksToDistance(Axis::Breaker, data.distanceTicks)));
+          translateTicksToDistance(UIData::Axis::Breaker, data.distanceTicks)));
       break;
     }
   }
@@ -116,22 +116,22 @@ void WirePullerWindow::serialPortOpenFeedback(bool isOpen) {
   }
 }
 
-double WirePullerWindow::translateTicksToDistance(Axis axis,
+double WirePullerWindow::translateTicksToDistance(UIData::Axis axis,
                                                   double ticks) const {
   double ticksPerCm{0.};
   switch (axis) {
-    case Axis::None: {
+    case UIData::Axis::None: {
       break;
     }
-    case Axis::X: {
+    case UIData::Axis::X: {
       ticksPerCm = ui->xAxisTicksPerCm->text().toDouble();
       break;
     }
-    case Axis::Wheel: {
+    case UIData::Axis::Wheel: {
       ticksPerCm = ui->wheelAxisTicksPerCm->text().toDouble();
       break;
     }
-    case Axis::Breaker: {
+    case UIData::Axis::Breaker: {
       ticksPerCm = ui->breakerAxisTicksPerCm->text().toDouble();
       break;
     }

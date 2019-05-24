@@ -10,20 +10,20 @@ bool WirePuller::setSerialPort(const QString& portName) {
   return communicator.open();
 }
 
-bool WirePuller::startMoving() {
+void WirePuller::startMoving() {
   if (!isPortOpen() || movingState()) {
-    return false;
+    return;
   }
 
-  return true;
+  setMovingState(true);
 }
 
-bool WirePuller::stopMoving() {
+void WirePuller::stopMoving() {
   if (!isPortOpen() || !movingState()) {
-    return false;
+    return;
   }
 
-  return true;
+  setMovingState(false);
 }
 
 void WirePuller::callibrate() {}
@@ -38,6 +38,7 @@ bool WirePuller::isPortOpen() const {
 
 void WirePuller::setMovingState(bool state) {
   movingStateFlag = state;
+  emit movingStateFeedback(state);
 }
 
 void WirePuller::openSerialPort(QString const& portName) {

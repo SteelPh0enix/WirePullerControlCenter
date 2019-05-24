@@ -39,6 +39,7 @@ HEADERS += \
   jsonconstants.hpp \
         requestbuilder.hpp \
         serialportinfomanager.hpp \
+  uidata.hpp \
   wirepuller.hpp \
         wirepullerwindow.hpp \
     Messages/messageparser.hpp \
